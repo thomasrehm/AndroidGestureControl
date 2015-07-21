@@ -4,13 +4,28 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
 public class MainActivity extends ActionBarActivity {
+
+    private WebView mWebView;
+
+    // Enable Javascript
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        mWebView = (WebView) findViewById(R.id.activity_main_webview);
+
+        WebSettings webSettings = mWebView.getSettings();
+        webSettings.setJavaScriptEnabled(true);
+
+        mWebView.loadUrl("http://drive.google.com/");
+
     }
 
     @Override
@@ -18,6 +33,8 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
+
+
     }
 
     @Override
