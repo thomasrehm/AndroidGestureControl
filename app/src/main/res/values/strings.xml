@@ -1,6 +1,5 @@
 <resources>
     <string name="app_name">AndroidGestureControl</string>
-
-    <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="fullscreen_toast">Vollbild aktiviert.\n Herunterziehen zum beenden.</string>
 </resources>

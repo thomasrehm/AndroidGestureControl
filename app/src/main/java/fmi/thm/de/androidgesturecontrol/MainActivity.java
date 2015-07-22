@@ -3,6 +3,7 @@ package fmi.thm.de.androidgesturecontrol;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -10,6 +11,8 @@ import android.view.View;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -55,7 +58,13 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_fullscreen) {
+            Toast toast = Toast.makeText(this, R.string.fullscreen_toast, Toast.LENGTH_SHORT);
+            TextView toast_view = (TextView) toast.getView().findViewById(android.R.id.message);
+            toast_view.setGravity(Gravity.CENTER);
+            toast.show();
+
             Log.d(TAG, "Button clicked");
+
             hideSystemUI();
             return true;
         }
