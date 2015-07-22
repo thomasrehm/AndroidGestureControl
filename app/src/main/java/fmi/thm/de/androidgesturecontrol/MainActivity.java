@@ -38,6 +38,21 @@ public class MainActivity extends ActionBarActivity {
 
         mWebView.loadUrl("http://drive.google.com/");
 
+        mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
+            @Override
+            public void onSystemUiVisibilityChange(int visibility) {
+                if(visibility == 0) {
+                    showSystemUI();
+                    Toast toast = Toast.makeText(MainActivity.this, R.string.fullscreen_exit, Toast.LENGTH_SHORT);
+                    TextView toast_view = (TextView) toast.getView().findViewById(android.R.id.message);
+                    toast_view.setGravity(Gravity.CENTER);
+                    toast.show();
+                }
+            }
+        });
+
+
+
     }
 
     @Override
@@ -66,6 +81,7 @@ public class MainActivity extends ActionBarActivity {
             Log.d(TAG, "Button clicked");
 
             hideSystemUI();
+
             return true;
         }
 
@@ -90,9 +106,10 @@ public class MainActivity extends ActionBarActivity {
 // except for the ones that make the content appear under the system bars.
     private void showSystemUI() {
         mDecorView.setSystemUiVisibility(
-                View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                        | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+            View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+            | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+            | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN);
+
     }
 
     @Override
