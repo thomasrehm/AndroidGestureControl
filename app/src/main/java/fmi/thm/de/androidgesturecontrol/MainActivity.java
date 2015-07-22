@@ -2,6 +2,7 @@ package fmi.thm.de.androidgesturecontrol;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebSettings;
@@ -12,9 +13,7 @@ public class MainActivity extends ActionBarActivity {
 
     private WebView mWebView;
 
-    // Enable Javascript
-
-
+    private static  String TAG = "AGC";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +23,7 @@ public class MainActivity extends ActionBarActivity {
         mWebView.setWebViewClient(new WebViewClient());
 
         WebSettings webSettings = mWebView.getSettings();
+        // Enable Javascript
         webSettings.setJavaScriptEnabled(true);
 
         mWebView.loadUrl("http://drive.google.com/");
@@ -48,6 +48,7 @@ public class MainActivity extends ActionBarActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_fullscreen) {
+            Log.d(TAG, "Button clicked");
             return true;
         }
 
