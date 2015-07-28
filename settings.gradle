@@ -1,1 +1,3 @@
 include ':app', ':touchfreelibrary'
+include ':openCVLibrary300'
+include ':openCVLibrary2411'

@@ -13,8 +13,13 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
+import org.opencv.android.OpenCVLoader;
+import org.opencv.android.BaseLoaderCallback;
+import org.opencv.android.LoaderCallbackInterface;
+import edu.washington.cs.touchfreelibrary.sensors.ClickSensor;
+import edu.washington.cs.touchfreelibrary.sensors.CameraGestureSensor;
 
-public class MainActivity extends ActionBarActivity {
+public class MainActivity extends ActionBarActivity implements CameraGestureSensor.Listener {
 
     private WebView mWebView;
 
@@ -22,10 +27,24 @@ public class MainActivity extends ActionBarActivity {
 
     private static  String TAG = "AGC";
 
+    /** True if the openCV library has been initiated.
+     *  False otherwise*/
+    private boolean mOpenCVInitiated = false;
+
+    /** Sensor that detects gestures. Calls the appropriate
+     *  functions when the motions are recognized. */
+    private CameraGestureSensor mGestureSensor;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Initialize openCV
+        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
+
+        mGestureSensor = new CameraGestureSensor(this);
+        mGestureSensor.addGestureListener(this);
 
         mDecorView = getWindow().getDecorView();
 
@@ -123,4 +142,68 @@ public class MainActivity extends ActionBarActivity {
         // system behavior (probably exit the activity)
         return super.onKeyDown(keyCode, event);
     }
+
+    /** OpenCV library initialization. */
+    private BaseLoaderCallback mLoaderCallback = new BaseLoaderCallback(this) {
+        @Override
+        public void onManagerConnected(int status) {
+            switch (status) {
+                case LoaderCallbackInterface.SUCCESS:
+                {
+                    mOpenCVInitiated = true;
+                    CameraGestureSensor.loadLibrary();
+                    mGestureSensor.start();
+                } break;
+                default:
+                {
+                    super.onManagerConnected(status);
+                } break;
+            }
+        }
+    };
+
+
+    /** Moves onto the next screen if an upwards gesture is received. */
+    @Override
+    public void onGestureUp(CameraGestureSensor caller, long gestureLength) {
+        Log.e(TAG, "Up gesture detected");
+    }
+
+    /** Moves onto the next screen if an downwards gesture is received. */
+    @Override
+    public void onGestureDown(CameraGestureSensor caller, long gestureLength) {
+        Log.e(TAG, "Down gesture detected");
+    }
+
+    /** Moves onto the next screen if an leftwards gesture is received. */
+    @Override
+    public void onGestureLeft(CameraGestureSensor caller, long gestureLength) {
+        Log.e(TAG, "Left gesture detected");
+    }
+
+    /** Moves onto the next screen if an rightwards gesture is received. */
+    @Override
+    public void onGestureRight(CameraGestureSensor caller, long gestureLength) {
+        Log.e(TAG, "Right gesture detected");
+    }
+
+    /** Called when the activity is resumed. The gesture detector is initialized. */
+    @Override
+    public void onResume() {
+        super.onResume();
+        if(!mOpenCVInitiated)
+            return;
+        mGestureSensor.start();
+    }
+
+    /** Called when the activity is paused. The gesture detector is stopped
+     *  so that the camera is no longer working to recognize gestures. */
+    @Override
+    public void onPause() {
+        super.onPause();
+        if(!mOpenCVInitiated)
+            return;
+        mGestureSensor.stop();
+    }
+
 }
