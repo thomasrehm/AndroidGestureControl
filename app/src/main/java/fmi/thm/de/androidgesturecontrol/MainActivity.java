@@ -35,16 +35,26 @@ public class MainActivity extends ActionBarActivity implements CameraGestureSens
      *  functions when the motions are recognized. */
     private CameraGestureSensor mGestureSensor;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Initialize openCV
-        OpenCVLoader.initAsync(OpenCVLoader.OPENCV_VERSION_2_4_3, this, mLoaderCallback);
 
-        mGestureSensor = new CameraGestureSensor(this);
-        mGestureSensor.addGestureListener(this);
+        if (!OpenCVLoader.initDebug()) {
+            Log.e(TAG, "OpenCV Loading Error!");
+        }
+        else {
+            Log.e(TAG, "OpenCV Loading Success!");
+            mOpenCVInitiated = true;
+            CameraGestureSensor.loadLibrary();
+            mGestureSensor = new CameraGestureSensor(this);
+            mGestureSensor.addGestureListener(this);
+            mGestureSensor.start();
+        }
+
+
 
         mDecorView = getWindow().getDecorView();
 
