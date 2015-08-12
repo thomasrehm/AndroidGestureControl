@@ -8,16 +8,20 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.webkit.WebSettings;
-import android.webkit.WebView;
-import android.webkit.WebViewClient;
+//import android.webkit.WebSettings;
+//import android.webkit.WebView;
+//import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import org.xwalk.core.XWalkNavigationHistory;
+import org.xwalk.core.XWalkPreferences;
+import org.xwalk.core.XWalkView;
+
 public class MainActivity extends ActionBarActivity {
 
-    private WebView mWebView;
-
+//    private WebView mWebView;
+    private XWalkView xWalkWebView;
     private View mDecorView;
 
     private static  String TAG = "AGC";
@@ -29,14 +33,20 @@ public class MainActivity extends ActionBarActivity {
 
         mDecorView = getWindow().getDecorView();
 
-        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-        mWebView.setWebViewClient(new WebViewClient());
+        xWalkWebView = (XWalkView) findViewById(R.id.xwalkWebView);
+        xWalkWebView.clearCache(true);
+        xWalkWebView.load("https://thomasrehm.github.io/reveal.js", null);
+        // turn on debugging
+        XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
 
-        WebSettings webSettings = mWebView.getSettings();
-        // Enable Javascript
-        webSettings.setJavaScriptEnabled(true);
 
-        mWebView.loadUrl("http://drive.google.com/");
+//        mWebView = (WebView) findViewById(R.id.activity_main_webview);
+//        mWebView.setWebViewClient(new WebViewClient());
+//        WebSettings webSettings = mWebView.getSettings();
+//        // Enable Javascript
+//        webSettings.setJavaScriptEnabled(true);
+//
+//        mWebView.loadUrl("http://drive.google.com/");
 
         mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -112,11 +122,23 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
+//    @Override
+//    public boolean onKeyDown(int keyCode, KeyEvent event) {
+//        // Check if the key event was the Back button and if there's history
+//        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
+//            mWebView.goBack();
+//            return true;
+//        }
+//        // If it wasn't the Back key or there's no web page history, bubble up to the default
+//        // system behavior (probably exit the activity)
+//        return super.onKeyDown(keyCode, event);
+//    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Check if the key event was the Back button and if there's history
-        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-            mWebView.goBack();
+        if ((keyCode == KeyEvent.KEYCODE_BACK) && xWalkWebView.getNavigationHistory().canGoBack() ) {
+//            mWebView.goBack();
+            xWalkWebView.getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, 1);
             return true;
         }
         // If it wasn't the Back key or there's no web page history, bubble up to the default
