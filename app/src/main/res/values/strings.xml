@@ -3,4 +3,6 @@
     <string name="action_settings">Settings</string>
     <string name="fullscreen_toast">Vollbild aktiviert.\n Herunterziehen zum beenden.</string>
     <string name="fullscreen_exit">Vollbild beendet</string>
+    <string name="hand_gesture_enabled">Hand Bewegungen werden erkannt</string>
+    <string name="hand_gesture_disabled">Hand Bewegungen werden nicht mehr erkannt</string>
 </resources>

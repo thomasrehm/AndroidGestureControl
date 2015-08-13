@@ -1,6 +1,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:yourapp="http://schemas.android.com/apk/res-auto">
 
+    <item android:id="@+id/action_enable_handgesture"
+        android:icon="@drawable/enable_hand_gesture"
+        android:title="Enable Hand Gesture"
+        android:visible="true"
+        yourapp:showAsAction="ifRoom"  />
+
     <item android:id="@+id/action_fullscreen"
         android:icon="@drawable/ic_fullscreen_white_48dp"
         android:title="Fullscreen"
