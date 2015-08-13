@@ -8,9 +8,6 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-//import android.webkit.WebSettings;
-//import android.webkit.WebView;
-//import android.webkit.WebViewClient;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -20,7 +17,6 @@ import org.xwalk.core.XWalkView;
 
 public class MainActivity extends ActionBarActivity {
 
-//    private WebView mWebView;
     private XWalkView xWalkWebView;
     private View mDecorView;
     private boolean btn_fullscreen_clicked = false;
@@ -287,18 +283,9 @@ public class MainActivity extends ActionBarActivity {
         xWalkWebView = (XWalkView) findViewById(R.id.xwalkWebView);
         xWalkWebView.clearCache(true);
         xWalkWebView.load("https://slides.com", null);
-//        xWalkWebView.evaluateJavascript(script, null);
+
         // turn on debugging
         XWalkPreferences.setValue(XWalkPreferences.REMOTE_DEBUGGING, true);
-
-
-//        mWebView = (WebView) findViewById(R.id.activity_main_webview);
-//        mWebView.setWebViewClient(new WebViewClient());
-//        WebSettings webSettings = mWebView.getSettings();
-//        // Enable Javascript
-//        webSettings.setJavaScriptEnabled(true);
-//
-//        mWebView.loadUrl("http://drive.google.com/");
 
         mDecorView.setOnSystemUiVisibilityChangeListener(new View.OnSystemUiVisibilityChangeListener() {
             @Override
@@ -313,9 +300,6 @@ public class MainActivity extends ActionBarActivity {
                 }
             }
         });
-
-
-
     }
 
     @Override
@@ -323,8 +307,6 @@ public class MainActivity extends ActionBarActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         return true;
-
-
     }
 
     @Override
@@ -352,8 +334,6 @@ public class MainActivity extends ActionBarActivity {
         }
 
         if(id == R.id.action_enable_handgesture){
-
-
             if (!btn_enable_gesture_clicked){
                 Toast toast = Toast.makeText(this, R.string.hand_gesture_enabled, Toast.LENGTH_SHORT);
                 TextView toast_view = (TextView) toast.getView().findViewById(android.R.id.message);
@@ -371,12 +351,8 @@ public class MainActivity extends ActionBarActivity {
                 item.setIcon(R.drawable.enable_hand_gesture);
                 btn_enable_gesture_clicked = false;
                 xWalkWebView.evaluateJavascript(rm_script, null);
-
             }
-
-
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -404,22 +380,10 @@ public class MainActivity extends ActionBarActivity {
 
     }
 
-//    @Override
-//    public boolean onKeyDown(int keyCode, KeyEvent event) {
-//        // Check if the key event was the Back button and if there's history
-//        if ((keyCode == KeyEvent.KEYCODE_BACK) && mWebView.canGoBack()) {
-//            mWebView.goBack();
-//            return true;
-//        }
-//        // If it wasn't the Back key or there's no web page history, bubble up to the default
-//        // system behavior (probably exit the activity)
-//        return super.onKeyDown(keyCode, event);
-//    }
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         // Check if the key event was the Back button and if there's history
         if ((keyCode == KeyEvent.KEYCODE_BACK) && xWalkWebView.getNavigationHistory().canGoBack() ) {
-//            mWebView.goBack();
             xWalkWebView.getNavigationHistory().navigate(XWalkNavigationHistory.Direction.BACKWARD, 1);
             return true;
         }
