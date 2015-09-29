@@ -218,11 +218,11 @@ function gesture(){
             console.log("isHorizontalMovement: " + isHorizontalMovement);
             //console.log(good,davg)
             if (dx < -movethresh && isHorizontalMovement) {
-                console.log('right');
-                Reveal.navigateRight();
-            } else if (dx > movethresh && isHorizontalMovement) {
                 console.log('left');
                 Reveal.navigateLeft();
+            } else if (dx > movethresh && isHorizontalMovement) {
+                console.log('right');
+                Reveal.navigateRight();
             }
             if (dy > movethresh && !isHorizontalMovement) {
                 if (davg > overthresh) {
