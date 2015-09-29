@@ -226,16 +226,18 @@ function gesture(){
             }
             if (dy > movethresh && !isHorizontalMovement) {
                 if (davg > overthresh) {
-                    console.log('over up');
-                    Reveal.toggleOverview();
+                    // Overwiev is disabled because of too much false positives
+                    //console.log('over up');
+                    //Reveal.toggleOverview();
                 } else {
                     console.log('up');
                     Reveal.navigateUp();
                 }
             } else if (dy < -movethresh && !isHorizontalMovement) {
                 if (davg > overthresh) {
-                    console.log('over down');
-                    Reveal.toggleOverview();
+                    // Overwiev is disabled because of too much false positives
+                    //console.log('over down');
+                    //Reveal.toggleOverview();
                 } else {
                     console.log('down');
                     Reveal.navigateDown();
