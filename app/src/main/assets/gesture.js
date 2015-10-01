@@ -198,15 +198,15 @@ function gesture(){
         switch (state) {
         case 0:
             if (good) { //Found a gesture, waiting for next move
-                console.log("Waiting for gesture");
+                //console.log("Waiting for gesture");
                 state = 1;
                 calibrate();
             }
             break;
         case 2: //Wait for gesture to end
             if (!good) { //Gesture ended
-                console.log("Gesture ended.");
-                console.log("--------------------------------");
+                //console.log("Gesture ended.");
+                //console.log("--------------------------------");
                 state = 0;
             }
             break;
@@ -214,14 +214,14 @@ function gesture(){
             var dx = down.x - wasdown.x,
                 dy = down.y - wasdown.y;
             var isHorizontalMovement = Math.abs(dy) < Math.abs(dx); //(dx,dy) is on a bowtie
-            console.log("dx: " + dx);
-            console.log("isHorizontalMovement: " + isHorizontalMovement);
+            //console.log("dx: " + dx);
+            //console.log("isHorizontalMovement: " + isHorizontalMovement);
             //console.log(good,davg)
             if (dx < -movethresh && isHorizontalMovement) {
-                console.log('left');
+                //console.log('left');
                 Reveal.navigateLeft();
             } else if (dx > movethresh && isHorizontalMovement) {
-                console.log('right');
+                //console.log('right');
                 Reveal.navigateRight();
             }
             if (dy > movethresh && !isHorizontalMovement) {
@@ -230,7 +230,7 @@ function gesture(){
                     //console.log('over up');
                     //Reveal.toggleOverview();
                 } else {
-                    console.log('up');
+                    //console.log('up');
                     Reveal.navigateUp();
                  }
             } else if (dy < -movethresh && !isHorizontalMovement) {
@@ -239,7 +239,7 @@ function gesture(){
                     //console.log('over down');
                     //Reveal.toggleOverview();
                 } else {
-                    console.log('down');
+                    //console.log('down');
                     Reveal.navigateDown();
                 }
             }
