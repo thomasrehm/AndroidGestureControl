@@ -232,7 +232,7 @@ function gesture(){
                 } else {
                     console.log('up');
                     Reveal.navigateUp();
-                }
+                 }
             } else if (dy < -movethresh && !isHorizontalMovement) {
                 if (davg > overthresh) {
                     // Overwiev is disabled because of too much false positives

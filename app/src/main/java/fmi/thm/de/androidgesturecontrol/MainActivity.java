@@ -16,11 +16,9 @@ import org.xwalk.core.XWalkNavigationHistory;
 import org.xwalk.core.XWalkPreferences;
 import org.xwalk.core.XWalkView;
 
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.InputStreamReader;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -41,16 +39,6 @@ public class MainActivity extends ActionBarActivity {
 
         mDecorView = getWindow().getDecorView();
         AssetManager am = getAssets();
-/*        String[] list;
-        try {
-            list = am.list("js");
-            for (String listelement : list) {
-                Log.d(TAG, "AssetManager: found " + listelement);
-            }
-        } catch (IOException e) {
-            Log.e(TAG, "Could not list folders from AssetManager");
-        }*/
-
 
 
         try {
